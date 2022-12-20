@@ -2,17 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
 //Load config
-dotenv.config({ path: './config/config.env' })
+dotenv.config({ path: "./config/config.env" });
 
 // database connection
-connectDB()
+connectDB();
 
 // middleware
-app.use(express.static('public'));
+app.use(express.static("public"));
+app.use(express.json());
 
 // view engine
 app.set('view engine', 'ejs');
@@ -21,6 +23,8 @@ app.set('view engine', 'ejs');
 // routes
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
+app.use(authRoutes);
+
 
 PORT = 3000
 
