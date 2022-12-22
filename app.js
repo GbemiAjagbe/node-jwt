@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv')
-const connectDB = require('./config/db')
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -15,6 +16,7 @@ connectDB();
 // middleware
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser());
 
 // view engine
 app.set('view engine', 'ejs');
